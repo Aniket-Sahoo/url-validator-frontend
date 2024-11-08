@@ -22,7 +22,7 @@ export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     background: {
-      default: '#F2F3F4',
+      default: '#BEBFC5',
       paper: '#f7f7f8',
     },
     primary: {
@@ -49,11 +49,11 @@ export const lightTheme = createTheme({
           // Background color for the entire input area
           backgroundColor: "#DBD7D2",
           "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#a3a3a3", // Border color on hover
-            borderWidth: "1px",
+            borderColor: "#8C92AC", // Border color on hover
+            borderWidth: "2px",
           },
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#a3a3a3", // Border color on focus,
+            borderColor: "#8C92AC", // Border color on focus,
           },
         },
         input: {
@@ -72,7 +72,7 @@ export const lightTheme = createTheme({
         root: {
           color: "#888", // Label color
           "&.Mui-focused": {
-            color: "#888", // Label color when focused
+            color: "#0070BB", // Label color when focused
           },
         },
       },

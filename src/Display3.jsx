@@ -76,7 +76,12 @@ export default function BasicTable() {
           <TableHead>
             <TableRow>
               {columnLabels.map((label) => (
-                <TableCell key={label}>{label}</TableCell>
+                <TableCell
+                 key={label}
+                 sx={{backgroundColor: "#E5E4E2", color: "black"}}
+                >
+                  {label}
+                </TableCell>
               ))}
             </TableRow>
           </TableHead>
@@ -88,8 +93,8 @@ export default function BasicTable() {
               >
                 <TableCell component="th" scope="row">{row._id}</TableCell>
                 <TableCell align="left">{row.status.toString()}</TableCell>
-                <TableCell align="center">{row.imageUrl}</TableCell>
-                <TableCell align="right">{row.dateSubmitted}</TableCell>
+                <TableCell align="left">{row.imageUrl}</TableCell>
+                <TableCell align="left">{row.dateSubmitted}</TableCell>
               </TableRow>
             ))}
           </TableBody>
