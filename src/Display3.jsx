@@ -9,30 +9,47 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 
-const columnLabels = ["Task ID", "URL", "TimeStamp",  "Status"];
+const columnLabels = ["Task ID", "URL", "Status",  "TimeStamp"];
 
 export default function BasicTable() {
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  
   useEffect(() => {
     const eventSource = new EventSource('http://localhost:8080/api/event');
-    eventSource.onmessage = (event) => {
-      console.log("entered onmessage");
-      const data = JSON.parse(event.data);
-      setData(data); // Update status based on SSE data
-      setLoading(false);
-      console.log("data", data);
+  
+    const handleEvent = async (event) => {
+      try {
+        console.log("entered onmessage");
+        const data = JSON.parse(event.data);
+        setData(data); // Update status based on SSE data
+        setLoading(false);
+        console.log("data", data);
+      } catch (err) {
+        setError(`Error processing SSE data: ${err.message}`);
+        setLoading(false);
+      }
     };
-
+  
+    // Event listener for message
+    eventSource.onmessage = handleEvent;
+  
+    // Error handling
+    eventSource.onerror = (err) => {
+      setError(`SSE connection error: ${err.message}`);
+      setLoading(false);
+      eventSource.close(); // Close connection on error
+    };
+  
     // Clean up when the component unmounts
     return () => {
       eventSource.close();
     };
   }, []);
   
+
 
   if (loading) {
     return <div>Loading...</div>;

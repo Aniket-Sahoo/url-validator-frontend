@@ -11,6 +11,7 @@ const CTAComponent = () => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post('/api/submit-task', { url });
+      setUrl('');
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error submitting task:', error);
