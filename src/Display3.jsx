@@ -17,29 +17,22 @@ export default function BasicTable() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //         const result = await axios.get('/api/list-urls');
-  //         console.log(result.data)
-  //         setData(result.data)
-  //     }
-  //     fetchData();
-  // }, []);
-
   useEffect(() => {
-    // Replace 'your-api-endpoint' with your actual endpoint
-    axios.get('/api/list-urls')
-      .then((response) => {
-        console.log(response.data);
-        setData(response.data); // Set the data from the API
-        setLoading(false); // Set loading to false once the data is fetched
-      })
-      .catch((err) => {
-        setError(err.message); // Capture any error
-        setLoading(false);
-      }
-    );
-  }, []); // dependency array ensures the request runs when data changes
+    const eventSource = new EventSource('http://localhost:8080/api/event');
+    eventSource.onmessage = (event) => {
+      console.log("entered onmessage");
+      const data = JSON.parse(event.data);
+      setData(data); // Update status based on SSE data
+      setLoading(false);
+      console.log("data", data);
+    };
+
+    // Clean up when the component unmounts
+    return () => {
+      eventSource.close();
+    };
+  }, []);
+  
 
   if (loading) {
     return <div>Loading...</div>;
@@ -48,7 +41,8 @@ export default function BasicTable() {
   if (error) {
     return <div>Error: {error}</div>;
   }
-    // console.log(data);
+
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">

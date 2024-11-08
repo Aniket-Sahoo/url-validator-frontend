@@ -4,6 +4,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material'
 import { lightTheme, darkTheme } from './customTheme'
 import DisplayComponent from './Display.jsx'
 import DisplayComponent2 from './Display2.jsx'
+import DisplayComponent3 from './Display3.jsx'
 import SubmitTextField from './test.jsx'
 
 function App() {
@@ -16,10 +17,11 @@ function App() {
         padding={10}  
         justifyContent={"center"} alignItems={"center"} 
       >
-        <SubmitTextField />
+        {/* <SubmitTextField /> */}
         <CTAComponent />
         {/* <DisplayComponent /> */}
-        <DisplayComponent2 />
+        {/* <DisplayComponent2 /> */}
+        <DisplayComponent3 />
       </Grid2>
     </ThemeProvider>
   )
