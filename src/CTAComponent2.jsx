@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, TextField, Box, Grid2 } from '@mui/material';
 
-function SubmitTextField() {
+function CTAComponent2() {
 
   const [url, setUrl] = useState("");
   
@@ -17,7 +17,7 @@ function SubmitTextField() {
   };
 
   return (
-    <Grid2 display={{xs: "block", md: "none"}} sx={{ width: "100%" }} maxWidth={600}>
+    <Grid2 display={{xs: "block", md: "none"}} py={6} sx={{ width: "100%" }} maxWidth={600}>
       <TextField
         label="Enter URL"
         variant="outlined"
@@ -44,4 +44,4 @@ function SubmitTextField() {
   );
 }
 
-export default SubmitTextField;
+export default CTAComponent2;
