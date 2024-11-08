@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Grid2 from '@mui/material/Grid2';
 import TextField from '@mui/material/TextField';
 import { Button, Box } from '@mui/material';
@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const CTAComponent = () => {
 
-  const [url, setUrl] = React.useState("");
+  const [url, setUrl] = useState("");
   
   const handleSubmit = async () => {
     try {
@@ -19,10 +19,10 @@ const CTAComponent = () => {
   };
 
   return (
-      <Grid2 container sx={{ width: "100%" }} maxWidth={600} columns={12} py={10}>
+      <Grid2 display={{xs: "none", md: "flex"}} sx={{ width: "100%" }} maxWidth={600} columns={12} py={10}>
         <Grid2 size={9} >
           <TextField 
-            label="Enter Prompt" 
+            label="Enter URL" 
             value={url}
             onChange={(e) => setUrl(e.currentTarget.value)}
             fullWidth

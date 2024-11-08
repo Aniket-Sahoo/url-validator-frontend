@@ -18,7 +18,7 @@ function App() {
         border={6} 
         justifyContent={"center"} alignItems={"center"} justifyItems={"center"} alignContent={"center"}
       >
-        {/* <SubmitTextField /> */}
+        <SubmitTextField />
         <CTAComponent />
         {/* <DisplayComponent /> */}
         {/* <DisplayComponent2 /> */}

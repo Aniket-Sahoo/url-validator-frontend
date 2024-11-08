@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Button, TextField, Box, Grid2 } from '@mui/material';
 
 function SubmitTextField() {
-  const [inputText, setInputText] = useState(""); // To store input text
-  const [submittedText, setSubmittedText] = useState(""); // To store submitted text
 
-  const handleInputChange = (event) => {
-    setInputText(event.target.value); // Update input text
-  };
-
-  const handleSubmit = () => {
-    setSubmittedText(inputText); // Submit the text
-    setInputText(""); // Clear the input field after submit
+  const [url, setUrl] = useState("");
+  
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('/api/submit-task', { url });
+      setUrl('');
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error submitting task:', error);
+    }
   };
 
   return (
-    <Grid2 sx={{ maxWidth: 500, padding: 2 }}>
+    <Grid2 display={{xs: "block", md: "none"}} sx={{ width: "100%" }} maxWidth={600}>
       <TextField
-        label="Enter Text"
+        label="Enter URL"
         variant="outlined"
         fullWidth
-        value={inputText}
-        onChange={handleInputChange}
+        value={url}
+        onChange={(e) => setUrl(e.currentTarget.value)}
         sx={{ marginBottom: 2 }}
       />
       <Button
@@ -32,12 +34,12 @@ function SubmitTextField() {
         Submit
       </Button>
 
-      {submittedText && (
+      {/* {submittedText && (
         <Box sx={{ marginTop: 2 }}>
           <h3>Submitted Text: </h3>
           <p>{submittedText}</p>
         </Box>
-      )}
+      )} */}
     </Grid2>
   );
 }
