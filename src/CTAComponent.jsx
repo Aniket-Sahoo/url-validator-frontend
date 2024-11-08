@@ -19,7 +19,7 @@ const CTAComponent = () => {
   };
 
   return (
-      <Grid2 display={{xs: "none", md: "flex"}} sx={{ width: "100%" }} maxWidth={600} columns={12} py={10}>
+      <Grid2 display={{xs: "none", md: "flex"}} sx={{ width: "100%" }} maxWidth={600} columns={12} pt={10} pb={6}>
         <Grid2 size={9} >
           <TextField 
             label="Enter URL" 

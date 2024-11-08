@@ -5,6 +5,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import TablePagination  from '@mui/material/TablePagination';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
@@ -13,13 +14,15 @@ const columnLabels = ["Task ID", "Status", "URL",  "TimeStamp"];
 
 export default function BasicTable() {
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     const eventSource = new EventSource('http://localhost:8080/api/event');
-  
     const handleEvent = async (event) => {
       try {
         console.log("entered onmessage");
@@ -32,10 +35,8 @@ export default function BasicTable() {
         setLoading(false);
       }
     };
-  
     // Event listener for message
     eventSource.onmessage = handleEvent;
-  
     // Error handling
     eventSource.onerror = (err) => {
       setError(`SSE connection error: ${err.message}`);
@@ -49,8 +50,6 @@ export default function BasicTable() {
     };
   }, []);
   
-
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -59,31 +58,52 @@ export default function BasicTable() {
     return <div>Error: {error}</div>;
   }
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  const paginatedData = data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            {columnLabels.map((label) => (
-              <TableCell key={label}>{label}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((row) => (
-            <TableRow 
-              key={row._id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">{row._id}</TableCell>
-              <TableCell align="left">{row.status.toString()}</TableCell>
-              <TableCell align="center">{row.imageUrl}</TableCell>
-              <TableCell align="right">{row.dateSubmitted}</TableCell>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <TableContainer sx={{ maxHeight: "70vh" }}>
+        <Table stickyHeader sx={{ minWidth: 650 }} aria-label="scrollable table">
+          <TableHead>
+            <TableRow>
+              {columnLabels.map((label) => (
+                <TableCell key={label}>{label}</TableCell>
+              ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {paginatedData.map((row) => (
+              <TableRow 
+                key={row._id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">{row._id}</TableCell>
+                <TableCell align="left">{row.status.toString()}</TableCell>
+                <TableCell align="center">{row.imageUrl}</TableCell>
+                <TableCell align="right">{row.dateSubmitted}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+          rowsPerPageOptions={[10, 25, 50]} // Limit to only 10 rows per page
+          component="div"
+          count={data.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+    </Paper>
   );
 }
