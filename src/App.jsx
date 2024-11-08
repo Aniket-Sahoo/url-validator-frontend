@@ -15,7 +15,8 @@ function App() {
       <Grid2 
         container direction={"column"} 
         padding={10}  
-        justifyContent={"center"} alignItems={"center"} 
+        border={6} 
+        justifyContent={"center"} alignItems={"center"} justifyItems={"center"} alignContent={"center"}
       >
         {/* <SubmitTextField /> */}
         <CTAComponent />

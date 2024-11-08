@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 
-const columnLabels = ["Task ID", "URL", "Status",  "TimeStamp"];
+const columnLabels = ["Task ID", "Status", "URL",  "TimeStamp"];
 
 export default function BasicTable() {
 
@@ -77,8 +77,8 @@ export default function BasicTable() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">{row._id}</TableCell>
-              <TableCell align="left">{row.imageUrl}</TableCell>
-              <TableCell align="center">{row.status.toString()}</TableCell>
+              <TableCell align="left">{row.status.toString()}</TableCell>
+              <TableCell align="center">{row.imageUrl}</TableCell>
               <TableCell align="right">{row.dateSubmitted}</TableCell>
             </TableRow>
           ))}

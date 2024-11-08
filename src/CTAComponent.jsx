@@ -19,8 +19,7 @@ const CTAComponent = () => {
   };
 
   return (
-    <>
-      <Grid2 container minWidth={500} columns={12}>
+      <Grid2 container sx={{ width: "100%" }} maxWidth={600} columns={12} py={10}>
         <Grid2 size={9} >
           <TextField 
             label="Enter Prompt" 
@@ -44,7 +43,6 @@ const CTAComponent = () => {
           </Button>
         </Grid2>
       </Grid2>
-    </>
   );
 }
 
