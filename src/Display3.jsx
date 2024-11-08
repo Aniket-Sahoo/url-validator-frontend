@@ -22,7 +22,7 @@ export default function BasicTable() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const eventSource = new EventSource('http://localhost:8080/api/event');
+    const eventSource = new EventSource('http://localhost:8080/api/listUrls');
     const handleEvent = async (event) => {
       try {
         console.log("entered onmessage");

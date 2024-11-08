@@ -24,7 +24,7 @@ function CTAComponent2() {
         fullWidth
         value={url}
         onChange={(e) => setUrl(e.currentTarget.value)}
-        sx={{ marginBottom: 2 }}
+        sx={{ marginBottom: 2, boxShadow: 1 }}
       />
       <Button
         variant="contained"

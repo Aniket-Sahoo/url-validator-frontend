@@ -20,7 +20,7 @@ const CTAComponent = () => {
 
   return (
       <Grid2 display={{xs: "none", md: "flex"}} sx={{ width: "100%" }} maxWidth={600} columns={12} pt={10} pb={6}>
-        <Grid2 size={9} >
+        <Grid2 size={9} boxShadow={1} >
           <TextField 
             label="Enter URL" 
             value={url}
@@ -31,7 +31,7 @@ const CTAComponent = () => {
         <Grid2 size={3}>
           <Button
             variant="contained"
-            disableElevation
+            boxshadow={1}
             sx={{
               width: "100%", 
               height: "100%",
