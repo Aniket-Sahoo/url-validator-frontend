@@ -7,12 +7,12 @@ const CTAComponent = () => {
   return (
     <>
       <Grid2 container maxWidth={500} 
-        columns={12} border={3}
+        columns={12}
       >
-        <Grid2 item size={9} >
+        <Grid2 size={9} >
           <TextField label="Enter Prompt" fullWidth/>
         </Grid2>
-        <Grid2 size={3} border={1}>
+        <Grid2 size={3}>
           <Button
             variant="contained"
             disableElevation
